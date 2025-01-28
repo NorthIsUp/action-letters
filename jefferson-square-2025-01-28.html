@@ -1,43 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script>        // Helper function to clean template strings (like Python's cleandoc)
-        function cleanDoc(str) {
-            // Remove initial newline and find minimum indentation
-            const lines = str.replace(/^\n/, '').split('\n');
-            const minIndent = lines
-                .filter(line => line.trim())
-                .reduce((min, line) => Math.min(min, line.match(/^\s*/)[0].length), Infinity);
-            
-            // Remove the minimum indentation from each line and join back
-            return lines
-                .map(line => line.slice(minIndent))
-                .join('\n')
-                .trim();
-        }
-    </script>
     <script>
         // Title
         const LETTER_TITLE = `Urgent Concerns Regarding Jefferson Square Park`;
 
         // Default letter body
-        const LETTER_BODY = cleanDoc(`
+        const LETTER_BODY = `
             I am writing to express urgent concerns regarding the deteriorating conditions at Jefferson Square Park and the immediate surrounding area. Our community is experiencing serious safety and public health issues that require immediate attention and a comprehensive solution—not simply displacing these problems to other neighborhoods.
 
             Jefferson Square Park is surrounded by many schools and residential buildings. Sacred Heart and Millennium schools are located directly on the park and Rosa Parks Elementary is just a block away. Margaret S. Hayward Playground has many after school care activities and youth sports programs like soccer, soft ball, and skateboarding lessons. Established in 1850 it is one of San Francisco's oldest public spaces and has been a vital community gathering place for over 174 years. This historic park served as a refugee camp after the 1906 earthquake and was later immortalized in Alfred Hitchcock's classic film "Vertigo" giving it an earned spot in San Francisco's cultural heritage.
 
-            The current situation presents immediate safety risks to residents, students, and park users
-
-            Public Safety Concerns:
+            The current situation presents immediate safety risks to residents, students, and park users. Residents have observed the following activities and conditions:
 
             - Organized drug trafficking operations during nighttime hours
             - Multiple break-ins and burglaries targeting nearby residences
             - Sidewalk fires and attempted arson of residential buildings
             - Groups blocking emergency exits and main entrances to buildings
             - Ongoing package theft from residential buildings
-
-            Public Health Hazards:
-
             - Discarded medical waste throughout the park
             - Human waste contamination
             - Excessive accumulation of trash and debris
@@ -53,8 +33,8 @@
 
             We recognize these challenges require a balanced approach that addresses both immediate safety concerns and underlying causes. However, the current situation is untenable and demands urgent action.
 
-            Please provide information about your planned response to these issues. Our community stands ready to engage constructively in developing and implementing solutions.`
-        );
+            Please provide information about your planned response to these issues. Our community stands ready to engage constructively in developing and implementing solutions.
+            `;
     </script>
 
     <meta charset="UTF-8">
@@ -243,8 +223,20 @@
             }
         };
 
-        console.log(LETTER_BODY);
-
+        // Helper function to clean template strings (like Python's cleandoc)
+        function cleanDoc(str) {
+            // Remove initial newline and find minimum indentation
+            const lines = str.replace(/^\n/, '').split('\n');
+            const minIndent = lines
+                .filter(line => line.trim())
+                .reduce((min, line) => Math.min(min, line.match(/^\s*/)[0].length), Infinity);
+            
+            // Remove the minimum indentation from each line and join back
+            return lines
+                .map(line => line.slice(minIndent))
+                .join('\n')
+                .trim();
+        }
 
         // Now we can use it with our templates:
         const LETTER_HEADER = cleanDoc(`
@@ -267,14 +259,17 @@
             - {recipientEmails}
             {ccBlock}
         `);
+
         // Letter template
         const LETTER_TEMPLATE = `
-            ${LETTER_HEADER}
+            {LETTER_HEADER}
 
-            {body}
+            {LETTER_BODY}
 
-            ${LETTER_FOOTER}
+            {LETTER_FOOTER}
         `;
+
+        const DEFAULT_LETTER_BODY = cleanDoc(LETTER_BODY);
     </script>
 </head>
 <body class="bg-gray-50 p-6">
@@ -436,12 +431,14 @@
                 ? recipients.slice(0, -1).join(', ') + ' and ' + recipients.slice(-1)
                 : recipients[0];
 
-            return LETTER_TEMPLATE
+            return cleanDoc(LETTER_TEMPLATE)
+                .replace('{LETTER_HEADER}', cleanDoc(LETTER_HEADER))
+                .replace('{LETTER_BODY}', cleanDoc(body))
+                .replace('{LETTER_FOOTER}', cleanDoc(LETTER_FOOTER))
                 .replace('{date}', date)
                 .replace('{recipients}', recipientList)
                 .replace('{recipientTitles}', recipientTitles)
-                .replace('{body}', body)
-                .replace('{signature}', signature)
+                .replace('{signature}', cleanDoc(signature))
                 .replace('{email}', document.getElementById('email').value)
                 .replace('{cc}', getCCEmails(recipients).join(', '));
         }
@@ -494,13 +491,47 @@
 
             const body = document.getElementById('letterBody').value;
             const signature = document.getElementById('signature').value;
+            const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
+            
+            // Get main recipient emails
             const recipientEmails = recipients
                 .map(name => getRecipientEmail(name))
                 .filter(email => email)
-                .join(', ');
+                .join(',');
+            
+            // Get CC emails as a comma-separated string
+            const ccEmails = getCCEmails(recipients).join(',');
+            
+            // Format recipient emails for the template
+            const recipientEmailsFormatted = recipients
+                .map(name => getRecipientEmail(name))
+                .filter(email => email)
+                .join('\n - ');
 
-            const fullLetter = getLetterTemplate(recipients, body, signature);
-            const mailtoLink = `mailto:${recipientEmails}?subject=${encodeURIComponent(LETTER_TITLE)}&body=${encodeURIComponent(fullLetter)}`;
+            // Get CC addresses for the template
+            const ccAddresses = getCCEmails(recipients);
+            const ccBlock = ccAddresses.length > 0 ? `\n\nCC:\n- ${ccAddresses.join('\n- ')}` : '';
+
+            // Format the complete letter with all replacements
+            const fullLetter = cleanDoc(LETTER_TEMPLATE)
+                .replace('{LETTER_HEADER}', cleanDoc(LETTER_HEADER)
+                    .replace('{date}', new Date().toLocaleDateString())
+                    .replace('{recipientTitles}', recipients.length > 1 
+                        ? recipients.slice(0, -1).join(', ') + ' and ' + recipients.slice(-1)
+                        : recipients[0]))
+                .replace('{LETTER_BODY}', cleanDoc(body))
+                .replace('{LETTER_FOOTER}', cleanDoc(LETTER_FOOTER)
+                    .replace('{signature}', signature)
+                    .replace('{email}', email)
+                    .replace('{address_lines}', address ? address.split(',').map(line => line.trim()).join('\n') : '')
+                    .replace('{recipientEmails}', recipientEmailsFormatted)
+                    .replace('{ccBlock}', ccBlock));
+            
+            // Build mailto link with CC field
+            const mailtoLink = `mailto:${recipientEmails}${ccEmails ? `?cc=${ccEmails}` : ''}${
+                ccEmails ? '&' : '?'
+            }subject=${encodeURIComponent(LETTER_TITLE)}&body=${encodeURIComponent(fullLetter)}`;
             
             window.location.href = mailtoLink;
         }
@@ -564,7 +595,7 @@
             // Restore the textarea value if it exists
             const textarea = document.getElementById('letterBody');
             if (textarea && !textarea.value) {
-                textarea.value = LETTER_BODY;
+                textarea.value = DEFAULT_LETTER_BODY;
             }
         }
 
@@ -679,7 +710,7 @@
         window.addEventListener('load', function() {
             createRecipientCheckboxes();
             renderLetterContainer(getSelectedRecipients(), '', '');
-            document.getElementById('letterBody').value = LETTER_BODY;
+            document.getElementById('letterBody').value = DEFAULT_LETTER_BODY;
             loadUserData(); // Load saved user data
             updateLetter();
         });
