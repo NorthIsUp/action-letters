@@ -25,7 +25,7 @@
             I am writing to express urgent concerns regarding the deteriorating conditions at Jefferson Square Park and the immediate surrounding area. Our community is experiencing serious safety and public health issues that require immediate attention and a comprehensive solution—not simply displacing these problems to other neighborhoods.
 
             Jefferson Square Park is surrounded by many schools and residential buildings. Sacred Heart and Millennium schools are located directly on the park and Rosa Parks Elementary is just a block away. Margaret S. Hayward Playground has many after school care activities and youth sports programs like soccer, soft ball, and skateboarding lessons. Established in 1850 it is one of San Francisco's oldest public spaces and has been a vital community gathering place for over 174 years. This historic park served as a refugee camp after the 1906 earthquake and was later immortalized in Alfred Hitchcock's classic film "Vertigo" giving it an earned spot in San Francisco's cultural heritage.
-a
+
             The current situation presents immediate safety risks to residents, students, and park users
 
             Public Safety Concerns:
@@ -139,61 +139,53 @@ a
                     defaultSelected: true
                 },
                 'Supervisor Connie Chan (D1)': { 
-                    email: 'connie.chan@sfgov.org',
-                    cc: ['ChanStaff@sfgov.org'],
+                    email: 'ChanStaff@sfgov.org',
                     phone: '(415) 554-7410',
                     fax: '(415) 554-5163',
                     hidden: false,
                     defaultSelected: false
                 },
                 'Supervisor Stephen Sherrill (D2)': { 
-                    email: 'stephen.sherrill@sfgov.org',
-                    cc: ['SherrillStaff@sfgov.org'],
+                    email: 'SherrillStaff@sfgov.org',
                     phone: '(415) 554-7752',
                     hidden: false,
                     defaultSelected: true
                 },
                 'Supervisor Danny Sauter (D3)': { 
-                    email: 'danny.sauter@sfgov.org',
-                    cc: ['SauterStaff@sfgov.org'],
+                    email: 'SauterStaff@sfgov.org',
                     phone: '(415) 554-7450',
                     hidden: false,
                     defaultSelected: false
                 },
                 'Supervisor Joel Engardio (D4)': { 
-                    email: 'joel.engardio@sfgov.org',
-                    cc: ['EngardioStaff@sfgov.org'],
+                    email: 'EngardioStaff@sfgov.org',
                     phone: '(415) 554-7460',
                     fax: '(415) 554-5163',
                     hidden: false,
                     defaultSelected: false
                 },
                 'Supervisor Bilal Mahmood (D5)': { 
-                    email: 'bilal.mahmood@sfgov.org',
-                    cc: ['MahmoodStaff@sfgov.org'],
+                    email: 'MahmoodStaff@sfgov.org',
                     phone: '(415) 554-7630',
                     hidden: false,
                     defaultSelected: true
                 },
                 'Supervisor Matt Dorsey (D6)': { 
-                    email: 'matt.dorsey@sfgov.org',
-                    cc: ['DorseyStaff@sfgov.org'],
+                    email: 'DorseyStaff@sfgov.org',
                     phone: '(415) 554-7970',
                     fax: '(415) 554-5163',
                     hidden: false,
                     defaultSelected: false
                 },
                 'Supervisor Myrna Melgar (D7)': { 
-                    email: 'myrna.melgar@sfgov.org',
-                    cc: ['MelgarStaff@sfgov.org'],
+                    email: 'MelgarStaff@sfgov.org',
                     phone: '(415) 554-6516',
                     fax: '(415) 554-5163',
                     hidden: false,
                     defaultSelected: false
                 },
                 'Supervisor Rafael Mandelman (D8)': { 
-                    email: 'rafael.mandelman@sfgov.org',
-                    cc: ['MandelmanStaff@sfgov.org'],
+                    email: 'MandelmanStaff@sfgov.org',
                     phone: '(415) 554-6968',
                     fax: '(415) 554-5163',
                     hidden: false,
@@ -201,21 +193,20 @@ a
                     title: 'Board President'
                 },
                 'Supervisor Jackie Fielder (D9)': { 
-                    email: 'jackie.fielder@sfgov.org',
+                    email: 'FielderStaff@sfgov.org',
                     phone: '(415) 554-5144',
                     hidden: false,
                     defaultSelected: false
                 },
                 'Supervisor Shamann Walton (D10)': { 
-                    email: 'shamann.walton@sfgov.org',
+                    email: 'WaltonStaff@sfgov.org',
                     phone: '(415) 554-7670',
                     fax: '(415) 554-5163',
                     hidden: false,
                     defaultSelected: false
                 },
                 'Supervisor Chyanne Chen (D11)': { 
-                    email: 'chyanne.chen@sfgov.org',
-                    cc: ['ChenStaff@sfgov.org'],
+                    email: 'ChenStaff@sfgov.org',
                     phone: '(415) 554-6975',
                     hidden: false,
                     defaultSelected: false
@@ -267,8 +258,10 @@ a
             Sincerely,
 
             {signature}
-            {address}
+
             {email}
+
+            {address_lines}
 
             Sent To:
             - {recipientEmails}
@@ -347,19 +340,27 @@ a
         // Create checkboxes for recipients
         function createRecipientCheckboxes() {
             const container = document.getElementById('recipientCheckboxes');
+            container.className = 'flex flex-wrap gap-x-8 gap-y-6';
             
             Object.entries(OFFICIALS).forEach(([category, officials]) => {
-                // Get visible officials in this category
                 const visibleOfficials = Object.entries(officials).filter(([_, info]) => !info.hidden);
                 
-                // Only create category if it has visible officials
                 if (visibleOfficials.length > 0) {
                     const categoryDiv = document.createElement('div');
-                    categoryDiv.className = 'mb-4';
+                    categoryDiv.className = 'min-w-[250px]';
+                    
+                    // Count selected recipients in this category
+                    const selectedCount = visibleOfficials.filter(([_, info]) => info.defaultSelected).length;
+                    
                     categoryDiv.innerHTML = `
-                        <h3 class="font-medium text-gray-900 mb-2">${category}</h3>
-                        <div class="space-y-2 ml-4">
-                        </div>
+                        <details>
+                            <summary class="font-medium text-gray-900 mb-2 cursor-pointer hover:text-blue-600">
+                                ${category} 
+                                <span class="text-sm text-gray-500">(${selectedCount} selected)</span>
+                            </summary>
+                            <div class="space-y-2 ml-4">
+                            </div>
+                        </details>
                     `;
                     
                     const officialsContainer = categoryDiv.querySelector('div');
@@ -372,7 +373,7 @@ a
                                 value="${name}"
                                 ${info.defaultSelected ? 'checked' : ''}
                                 class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                                onchange="updateLetter()">
+                                onchange="updateLetter(); updateSelectedCount(this)">
                             <label for="recipient-${name}" 
                                 class="ml-2 block text-sm text-gray-900">
                                 ${name}
@@ -384,6 +385,17 @@ a
                     container.appendChild(categoryDiv);
                 }
             });
+        }
+
+        // Add this new function to update the selected count
+        function updateSelectedCount(checkbox) {
+            const categoryDetails = checkbox.closest('details');
+            const summary = categoryDetails.querySelector('summary');
+            const checkboxes = categoryDetails.querySelectorAll('input[type="checkbox"]');
+            const selectedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+            
+            const countSpan = summary.querySelector('span');
+            countSpan.textContent = `(${selectedCount} selected)`;
         }
 
         function getSelectedRecipients() {
@@ -508,6 +520,15 @@ a
             const ccAddresses = getCCEmails(recipients);
             const ccBlock = ccAddresses.length > 0 ? `\n\nCC:\n- ${ccAddresses.join('\n- ')}` : '';
 
+            // Format address lines
+            function formatAddress(address) {
+                if (!address) return '';
+                // Split address by commas and format each line
+                return address.split(',')
+                    .map(line => line.trim())
+                    .join('\n');
+            }
+
             // Replace template variables in header and footer
             const headerHtml = converter.makeHtml(
                 LETTER_HEADER
@@ -521,8 +542,8 @@ a
             const footerHtml = converter.makeHtml(
                 LETTER_FOOTER
                     .replace('{signature}', signature || '[Your Name]')
-                    .replace('{address}', address ? `\n${address}` : '')
                     .replace('{email}', email || '[Your Email]')
+                    .replace('{address_lines}', formatAddress(address))
                     .replace('{recipientEmails}', recipientEmailsFormatted)
                     .replace('{ccBlock}', ccBlock)
             );
@@ -552,19 +573,114 @@ a
             const body = document.getElementById('letterBody').value;
             const signature = document.getElementById('signature').value || '[Your Name]';
             const email = document.getElementById('email').value || '[Your Email]';
-
-            // Update the container with current values
-            renderLetterContainer(recipients, signature, email);
-
-            // Update just the body preview content
+            
+            // Only update the preview content
             document.getElementById('letterPreview').innerHTML = converter.makeHtml(body);
+            
+            // Update recipient and signature sections without touching the editable section
+            const container = document.getElementById('letterContainer');
+            const address = document.getElementById('address').value;
+            
+            const recipientEmailsFormatted = recipients
+                .map(name => getRecipientEmail(name))
+                .filter(email => email)
+                .join('\n - ');
+            
+            const ccAddresses = getCCEmails(recipients);
+            const ccBlock = ccAddresses.length > 0 ? `\n\nCC:\n- ${ccAddresses.join('\n- ')}` : '';
+            
+            // Format address lines
+            function formatAddress(address) {
+                if (!address) return '';
+                // Split address by commas and format each line
+                return address.split(',')
+                    .map(line => line.trim())
+                    .join(', ');
+            }
+
+            // Update header
+            const headerHtml = converter.makeHtml(
+                LETTER_HEADER
+                    .replace('{date}', new Date().toLocaleDateString())
+                    .replace('{recipientEmails}', recipientEmailsFormatted)
+                    .replace('{recipientTitles}', recipients.length > 1 
+                        ? recipients.slice(0, -1).join(', ') + ' and ' + recipients.slice(-1)
+                        : recipients[0] || '[Recipients]')
+            );
+            
+            // Update footer
+            const footerHtml = converter.makeHtml(
+                LETTER_FOOTER
+                    .replace('{signature}', signature || '[Your Name]')
+                    .replace('{email}', email || '[Your Email]')
+                    .replace('{address_lines}', formatAddress(address))
+                    .replace('{recipientEmails}', recipientEmailsFormatted)
+                    .replace('{ccBlock}', ccBlock)
+            );
+            
+            // Split the container's children into header, editable section, and footer
+            const editableSection = container.querySelector('.editable-section');
+            
+            // Replace everything before the editable section (header)
+            while (container.firstChild !== editableSection) {
+                container.removeChild(container.firstChild);
+            }
+            container.insertAdjacentHTML('afterbegin', headerHtml);
+            
+            // Replace everything after the editable section (footer)
+            while (container.lastChild !== editableSection) {
+                container.removeChild(container.lastChild);
+            }
+            container.insertAdjacentHTML('beforeend', footerHtml);
         }
 
-        // Initialize everything after the page loads
+        function saveUserData() {
+            const signature = document.getElementById('signature').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const address = document.getElementById('address').value.trim();
+            
+            if (signature) localStorage.setItem('user_signature', signature);
+            if (email) localStorage.setItem('user_email', email);
+            if (address) localStorage.setItem('user_address', address);
+        }
+
+        function loadUserData() {
+            const signature = localStorage.getItem('user_signature');
+            const email = localStorage.getItem('user_email');
+            const address = localStorage.getItem('user_address');
+            
+            if (signature) document.getElementById('signature').value = signature;
+            if (email) document.getElementById('email').value = email;
+            if (address) document.getElementById('address').value = address;
+            
+            // Update the letter with loaded data
+            if (signature || email || address) {
+                updateLetter();
+            }
+        }
+
+        // Modify the input handlers to save data
+        document.getElementById('signature').addEventListener('input', function() {
+            updateLetter();
+            saveUserData();
+        });
+
+        document.getElementById('email').addEventListener('input', function() {
+            updateLetter();
+            saveUserData();
+        });
+
+        document.getElementById('address').addEventListener('input', function() {
+            updateLetter();
+            saveUserData();
+        });
+
+        // Modify the window load event to load saved data
         window.addEventListener('load', function() {
             createRecipientCheckboxes();
             renderLetterContainer(getSelectedRecipients(), '', '');
             document.getElementById('letterBody').value = LETTER_BODY;
+            loadUserData(); // Load saved user data
             updateLetter();
         });
     </script>
