@@ -119,9 +119,8 @@
             "description": "Letter addressing safety issues, drug activity, and public health hazards affecting Jefferson Square Park and surrounding community.",
             "date": "2025-01-28",
             "tags": [
-                "urgent",
-                "safety",
-                "public-health"
+                "jefferson square park",
+                "safety"
             ],
             "expires_at": "2025-03-28T00:00:00Z",
             "default_recipients": [
@@ -131,9 +130,7 @@
                 "d8_mandelman",
                 "recs_parks_head",
                 "sfpd_chief",
-                "recs_parks",
-                "dph",
-                "dpw"
+                "recs_parks"
             ]
         }
     }
