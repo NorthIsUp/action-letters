@@ -7,6 +7,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style type="text/tailwindcss">
+        html, body {
+            @apply h-full overflow-auto overscroll-none;
+        }
         @layer components {
             .prose {
                 @apply max-w-none;
