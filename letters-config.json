@@ -1,0 +1,140 @@
+{
+    "officials": {
+        "elected_officials": {
+            "title": "Elected Officials",
+            "members": {
+                "mayor_lurie": {
+                    "name": "Mayor Daniel Lurie",
+                    "email": "daniel.lurie@sfgov.org"
+                },
+                "d1_chan": {
+                    "name": "Supervisor Connie Chan (D1)",
+                    "email": "ChanStaff@sfgov.org",
+                    "cc": [],
+                    "phone": "(415) 554-7410",
+                    "fax": "(415) 554-5163"
+                },
+                "d2_sherrill": {
+                    "name": "Supervisor Stephen Sherrill (D2)",
+                    "email": "SherrillStaff@sfgov.org",
+                    "cc": [],
+                    "phone": "(415) 554-7752"
+                },
+                "d3_sauter": {
+                    "name": "Supervisor Danny Sauter (D3)",
+                    "email": "SauterStaff@sfgov.org",
+                    "cc": [],
+                    "phone": "(415) 554-7450"
+                },
+                "d4_engardio": {
+                    "name": "Supervisor Joel Engardio (D4)",
+                    "email": "EngardioStaff@sfgov.org",
+                    "cc": [],
+                    "phone": "(415) 554-7460",
+                    "fax": "(415) 554-5163"
+                },
+                "d5_mahmood": {
+                    "name": "Supervisor Bilal Mahmood (D5)",
+                    "email": "MahmoodStaff@sfgov.org",
+                    "cc": [],
+                    "phone": "(415) 554-7630"
+                },
+                "d6_dorsey": {
+                    "name": "Supervisor Matt Dorsey (D6)",
+                    "email": "DorseyStaff@sfgov.org",
+                    "cc": [],
+                    "phone": "(415) 554-7970",
+                    "fax": "(415) 554-5163"
+                },
+                "d7_melgar": {
+                    "name": "Supervisor Myrna Melgar (D7)",
+                    "email": "MelgarStaff@sfgov.org",
+                    "cc": [],
+                    "phone": "(415) 554-6516",
+                    "fax": "(415) 554-5163"
+                },
+                "d8_mandelman": {
+                    "name": "Supervisor Rafael Mandelman (D8)",
+                    "title": "Board President",
+                    "email": "MandelmanStaff@sfgov.org",
+                    "cc": [],
+                    "phone": "(415) 554-6968",
+                    "fax": "(415) 554-5163"
+                },
+                "d9_fielder": {
+                    "name": "Supervisor Jackie Fielder (D9)",
+                    "email": "FielderStaff@sfgov.org",
+                    "cc": [],
+                    "phone": "(415) 554-5144"
+                },
+                "d10_walton": {
+                    "name": "Supervisor Shamann Walton (D10)",
+                    "email": "WaltonStaff@sfgov.org",
+                    "cc": [],
+                    "phone": "(415) 554-7670",
+                    "fax": "(415) 554-5163"
+                },
+                "d11_chen": {
+                    "name": "Supervisor Chyanne Chen (D11)",
+                    "email": "ChenStaff@sfgov.org",
+                    "cc": [],
+                    "phone": "(415) 554-6975"
+                }
+            }
+        },
+        "department_heads": {
+            "title": "Department Heads",
+            "members": {
+                "recs_parks_head": {
+                    "name": "General Manager of Recs & Parks Phil Ginsburg",
+                    "email": "phil.ginsburg@sfgov.org"
+                },
+                "sfpd_chief": {
+                    "name": "SFPD Chief of Police",
+                    "email": "SFPDchief@sfgov.org"
+                }
+            }
+        },
+        "departments": {
+            "title": "Departments",
+            "members": {
+                "recs_parks": {
+                    "name": "Recs & Parks",
+                    "email": "rpdinfo@sfgov.org"
+                },
+                "dph": {
+                    "name": "Department of Public Health",
+                    "email": "sfdph@sfgov.org"
+                },
+                "dpw": {
+                    "name": "Department of Public Works",
+                    "email": "dpw@sfgov.org"
+                }
+            }
+        }
+    },
+    "letters": {
+        "2025-01-28-jefferson-square-park": {
+            "title": "Jefferson Square Park: Urgent Safety and Public Health Concerns",
+            "description": "Letter addressing safety issues, drug activity, and public health hazards affecting Jefferson Square Park and surrounding community.",
+            "date": "2025-01-28",
+            "tags": [
+                "urgent",
+                "safety",
+                "public-health"
+            ],
+            "expires_at": "2025-03-28T00:00:00Z",
+            "default_recipients": [
+                "mayor_lurie",
+                "d2_sherrill",
+                "d5_mahmood",
+                "d8_mandelman",
+                "recs_parks_head",
+                "sfpd_chief",
+                "recs_parks",
+                "dph",
+                "dpw"
+            ]
+        }
+    }
+}
