@@ -2,6 +2,7 @@
 let config = null;
 let currentLetter = null;
 let letterContent = null;
+let originalLetterContent = null;
 
 // Initialize Showdown converter
 const converter = new showdown.Converter({
@@ -32,11 +33,10 @@ function cleanDoc(str) {
 // Create checkboxes for recipients
 function createRecipientCheckboxes() {
   const container = document.getElementById("recipientCheckboxes");
-  // Clear existing checkboxes
   container.innerHTML = "";
   container.className = "flex flex-wrap gap-x-8 gap-y-6";
 
-  Object.entries(config.officials).forEach(([groupId, group]) => {
+  for (const [groupId, group] of Object.entries(config.officials)) {
     const categoryDiv = document.createElement("div");
     categoryDiv.className = "min-w-[250px]";
 
@@ -57,7 +57,7 @@ function createRecipientCheckboxes() {
         `;
 
     const membersContainer = categoryDiv.querySelector("div");
-    Object.entries(group.members).forEach(([id, official]) => {
+    for (const [id, official] of Object.entries(group.members)) {
       const div = document.createElement("div");
       div.className = "flex items-start";
       div.innerHTML = `
@@ -84,10 +84,10 @@ function createRecipientCheckboxes() {
                     <div class="text-xs text-gray-500">${official.email}</div>
                 </label>`;
       membersContainer.appendChild(div);
-    });
+    }
 
     container.appendChild(categoryDiv);
-  });
+  }
 }
 
 // Update the selected count in a category
@@ -139,7 +139,9 @@ function getCCEmails(recipientIds) {
   for (const id of recipientIds) {
     for (const group of Object.values(config.officials)) {
       if (id in group.members && group.members[id].cc) {
-        group.members[id].cc.forEach((email) => ccEmails.add(email));
+        for (const email of group.members[id].cc) {
+          ccEmails.add(email);
+        }
       }
     }
   }
@@ -168,10 +170,10 @@ function toTitleCase(str) {
           .join("-");
       }
       if (word.startsWith("mc") && word.length > 2) {
-        return "Mc" + word.charAt(2).toUpperCase() + word.slice(3);
+        return `Mc${word.charAt(2).toUpperCase()}${word.slice(3)}`;
       }
       if (word.startsWith("mac") && word.length > 3) {
-        return "Mac" + word.charAt(3).toUpperCase() + word.slice(4);
+        return `Mac${word.charAt(3).toUpperCase()}${word.slice(4)}`;
       }
       return word.charAt(0).toUpperCase() + word.slice(1);
     })
@@ -299,9 +301,9 @@ function updateLetter() {
   const headerHtml = converter.makeHtml(`# ${currentLetter.title}
 Dear ${
     recipientNames.length > 1
-      ? recipientNames.slice(0, -1).join(", ") +
-        " and " +
-        recipientNames.slice(-1)
+      ? `${recipientNames.slice(0, -1).join(", ")} and ${recipientNames.slice(
+          -1
+        )}`
       : recipientNames[0] || "[Recipients]"
   }:`);
 
@@ -409,9 +411,9 @@ function sendLetter(event) {
   // Format the letter with header and footer
   const letter = `Dear ${
     recipientNames.length > 1
-      ? recipientNames.slice(0, -1).join(", ") +
-        " and " +
-        recipientNames.slice(-1)
+      ? `${recipientNames.slice(0, -1).join(", ")} and ${recipientNames.slice(
+          -1
+        )}`
       : recipientNames[0]
   }:
 
@@ -458,9 +460,9 @@ ${new Date().toLocaleDateString()}
 
 Dear ${
     recipientNames.length > 1
-      ? recipientNames.slice(0, -1).join(", ") +
-        " and " +
-        recipientNames.slice(-1)
+      ? `${recipientNames.slice(0, -1).join(", ")} and ${recipientNames.slice(
+          -1
+        )}`
       : recipientNames[0] || "[Recipients]"
   }:`);
 
@@ -485,7 +487,7 @@ ${
 
   container.innerHTML = `
     ${headerHtml}
-    <div class="editable-section">
+    <div class="editable-section" data-edit-message="Click to edit">
         <div class="content" id="letterPreview"></div>
         <textarea id="letterBody" 
             oninput="updateLetterPreview()"
@@ -496,6 +498,14 @@ ${
 
   document.getElementById("letterBody").value = letterContent;
   updateLetterPreview();
+
+  // Check if there are saved changes by comparing with original
+  const content = document.getElementById("letterBody").value;
+  if (content.trim() !== originalLetterContent.trim()) {
+    document
+      .querySelector(".editable-section")
+      .setAttribute("data-edit-message", "Click to continue editing");
+  }
 }
 
 // Update just the letter preview
@@ -503,6 +513,23 @@ function updateLetterPreview() {
   const content = document.getElementById("letterBody").value;
   document.getElementById("letterPreview").innerHTML =
     converter.makeHtml(content);
+  saveLetterContent();
+
+  // Update edit message based on whether content has changed from original
+  const editableSection = document.querySelector(".editable-section");
+  const normalizedContent = content.trim().replace(/\r\n/g, "\n");
+  const normalizedOriginal = originalLetterContent
+    .trim()
+    .replace(/\r\n/g, "\n");
+
+  if (normalizedContent !== normalizedOriginal) {
+    editableSection.setAttribute(
+      "data-edit-message",
+      "Click to continue editing"
+    );
+  } else {
+    editableSection.setAttribute("data-edit-message", "Click to edit");
+  }
 }
 
 // Initialize the app when DOM is loaded
@@ -556,7 +583,7 @@ function renderLetterList() {
   const container = document.getElementById("letterCards");
   container.innerHTML = "";
 
-  Object.entries(config.letters).forEach(([key, letter]) => {
+  for (const [key, letter] of Object.entries(config.letters)) {
     const isExpired = new Date(letter.expires_at) < new Date();
     if (!isExpired) {
       container.innerHTML += `
@@ -591,7 +618,7 @@ function renderLetterList() {
                 </a>
             `;
     }
-  });
+  }
 }
 
 function getTagColor(tag) {
@@ -603,9 +630,46 @@ function getTagColor(tag) {
   return colors[tag] || "bg-gray-100 text-gray-800";
 }
 
+// Add these functions near the top with other state management
+function getLetterKey() {
+  return `letter_content_${currentLetter ? window.location.hash.slice(1) : ""}`;
+}
+
+function saveLetterContent() {
+  if (!currentLetter) return;
+  const content = document.getElementById("letterBody").value;
+  localStorage.setItem(getLetterKey(), content);
+}
+
+function loadLetterContent() {
+  if (!currentLetter) return null;
+  const savedContent = localStorage.getItem(getLetterKey());
+  // Return saved content if it exists and differs from original
+  if (savedContent && savedContent.trim() !== originalLetterContent.trim()) {
+    return savedContent;
+  }
+  return letterContent;
+}
+
+function resetLetter() {
+  if (!currentLetter) return;
+  if (!confirm("Reset letter to original content? Your changes will be lost."))
+    return;
+
+  localStorage.removeItem(getLetterKey());
+  letterContent = originalLetterContent;
+  document.getElementById("letterBody").value = letterContent;
+  document
+    .querySelector(".editable-section")
+    .setAttribute("data-edit-message", "Click to edit");
+  updateLetterPreview();
+}
+
+// Modify the showLetter function to load saved content
 async function showLetter(letterId) {
   // Clear existing state
   letterContent = null;
+  originalLetterContent = null;
   currentLetter = null;
   document.getElementById("recipientCheckboxes").innerHTML = "";
   document.getElementById("letterContainer").innerHTML = "";
@@ -613,7 +677,14 @@ async function showLetter(letterId) {
   // Set new state
   currentLetter = config.letters[letterId];
   const response = await fetch(`letters/${letterId}.md`);
-  letterContent = await response.text();
+  originalLetterContent = await response.text();
+  letterContent = originalLetterContent;
+
+  // Load saved content if it exists
+  const savedContent = loadLetterContent();
+  if (savedContent) {
+    letterContent = savedContent;
+  }
 
   // Switch views
   document.getElementById("letterList").classList.add("hidden");

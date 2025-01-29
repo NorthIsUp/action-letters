@@ -27,7 +27,7 @@
                 @apply relative cursor-text border border-dashed border-gray-300 p-1 sm:p-4 rounded-md hover:border-blue-400 transition-colors;
             }
             .editable-section::before {
-                content: 'Click to edit';
+                content: attr(data-edit-message);
                 @apply absolute -top-3 right-2 text-sm text-gray-500 bg-white px-2;
             }
             .editable-section:focus-within::before {
@@ -116,12 +116,20 @@
     <!-- Letter Editor View (initially hidden) -->
     <div id="letterEditor" class="hidden p-2 sm:p-6">
         <div class="sm:max-w-7xl sm:mx-auto">
-            <button onclick="showLetterList()" class="mb-6 flex items-center text-blue-600 hover:text-blue-800">
-                <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Back to Letters
-            </button>
+            <div class="flex justify-between items-center mb-6">
+                <button onclick="showLetterList()" class="flex items-center text-blue-600 hover:text-blue-800">
+                    <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Back to Letters
+                </button>
+                <button onclick="resetLetter()" class="flex items-center text-gray-600 hover:text-gray-800">
+                    <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    Reset
+                </button>
+            </div>
 
             <div class="bg-white rounded-lg shadow-md p-1 sm:p-6 w-full">
                 <div class="prose max-w-none" id="letterContainer">
