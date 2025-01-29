@@ -228,7 +228,11 @@ Sincerely,
 
 ${this.userData.signature}
 ${this.userData.email ? `\n${this.userData.email}` : ""}
-${this.userData.address ? `\n${this.formatAddress(this.userData.address)}` : ""}
+${
+  this.userData.address
+    ? `\nResident of ${this.formatAddress(this.userData.address)}`
+    : ""
+}
 
 This letter is copied to:
 ${this.selectedRecipients
@@ -264,7 +268,11 @@ Dear ${this.formatRecipientList()}:`);
 
 ${this.userData.signature || "[Your Name]"}
 
-${this.formatAddress(this.userData.address)}
+${
+  this.userData.address
+    ? `Resident of ${this.formatAddress(this.userData.address)}`
+    : ""
+}
 
 This letter is sent to:
 ${this.selectedRecipients
@@ -308,7 +316,7 @@ ${this.getCCEmails()}`);
       return address
         .split(",")
         .map((line) => line.trim())
-        .join("\n");
+        .join(",");
     },
 
     getCCEmails() {
