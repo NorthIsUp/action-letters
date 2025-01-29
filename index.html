@@ -27,7 +27,7 @@
                 @apply mb-1;
             }
             .editable-section {
-                @apply relative border border-dashed border-gray-300 p-1 sm:p-4 rounded-md hover:border-blue-400 transition-colors touch-manipulation;
+                @apply relative border border-dashed border-gray-300 p-1 sm:p-4 rounded-md hover:border-blue-400 transition-colors;
             }
             .editable-section::before {
                 content: attr(data-edit-message);
@@ -37,8 +37,15 @@
                 content: 'Editing...';
                 @apply text-blue-500;
             }
+            .editable-section .content {
+                @apply min-h-[200px];
+            }
             .editable-section textarea {
-                @apply absolute inset-0 opacity-0 w-full h-full p-1 sm:p-4 cursor-text;
+                @apply block w-full min-h-[200px] opacity-0 p-1 sm:p-4 cursor-text;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
             }
             .editable-section:focus-within {
                 @apply ring-2 ring-blue-500 border-transparent;
@@ -48,6 +55,7 @@
             }
             .editable-section:focus-within textarea {
                 @apply opacity-100;
+                position: relative;
             }
         }
     </style>
