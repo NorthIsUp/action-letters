@@ -290,6 +290,7 @@ ${this.getCCEmails()}`);
           return `[Recipient id: ${id}]`;
         })
         .filter(Boolean);
+
       switch (names.length) {
         case 0:
           return "[Recipients]";
