@@ -1,4 +1,25 @@
 {
+    "letters": {
+        "2025-01-28-jefferson-square-park": {
+            "title": "Jefferson Square Park: Urgent Safety and Public Health Concerns",
+            "description": "Letter addressing safety issues, drug activity, and public health hazards affecting Jefferson Square Park and surrounding community.",
+            "date": "2025-01-28",
+            "tags": [
+                "jefferson square park",
+                "safety"
+            ],
+            "expires_at": "2025-03-28T00:00:00Z",
+            "default_recipients": [
+                "mayor_lurie",
+                "d2_sherrill",
+                "d5_mahmood",
+                "d8_mandelman",
+                "recs_parks_head",
+                "sfpd_chief",
+                "recs_parks"
+            ]
+        }
+    },
     "officials": {
         "elected_officials": {
             "title": "Elected Officials",
@@ -111,27 +132,6 @@
                     "email": "dpw@sfgov.org"
                 }
             }
-        }
-    },
-    "letters": {
-        "2025-01-28-jefferson-square-park": {
-            "title": "Jefferson Square Park: Urgent Safety and Public Health Concerns",
-            "description": "Letter addressing safety issues, drug activity, and public health hazards affecting Jefferson Square Park and surrounding community.",
-            "date": "2025-01-28",
-            "tags": [
-                "jefferson square park",
-                "safety"
-            ],
-            "expires_at": "2025-03-28T00:00:00Z",
-            "default_recipients": [
-                "mayor_lurie",
-                "d2_sherrill",
-                "d5_mahmood",
-                "d8_mandelman",
-                "recs_parks_head",
-                "sfpd_chief",
-                "recs_parks"
-            ]
         }
     }
 }
