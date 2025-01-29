@@ -25,78 +25,100 @@
             "title": "Elected Officials",
             "members": {
                 "mayor_lurie": {
-                    "name": "Mayor Daniel Lurie",
+                    "title": "Mayor",
+                    "name": "Daniel Lurie",
                     "email": "daniel.lurie@sfgov.org"
                 },
                 "d1_chan": {
-                    "name": "Supervisor Connie Chan (D1)",
+                    "title": "Supervisor",
+                    "name": "Connie Chan",
+                    "note": "district 1",
                     "email": "ChanStaff@sfgov.org",
                     "cc": [],
                     "phone": "(415) 554-7410",
                     "fax": "(415) 554-5163"
                 },
                 "d2_sherrill": {
-                    "name": "Supervisor Stephen Sherrill (D2)",
+                    "title": "Supervisor",
+                    "name": "Stephen Sherrill",
+                    "note": "district 2",
                     "email": "SherrillStaff@sfgov.org",
                     "cc": [],
                     "phone": "(415) 554-7752"
                 },
                 "d3_sauter": {
-                    "name": "Supervisor Danny Sauter (D3)",
+                    "title": "Supervisor",
+                    "name": "Danny Sauter",
+                    "note": "district 3",
                     "email": "SauterStaff@sfgov.org",
                     "cc": [],
                     "phone": "(415) 554-7450"
                 },
                 "d4_engardio": {
-                    "name": "Supervisor Joel Engardio (D4)",
+                    "title": "Supervisor",
+                    "name": "Joel Engardio",
+                    "note": "district 4",
                     "email": "EngardioStaff@sfgov.org",
                     "cc": [],
                     "phone": "(415) 554-7460",
                     "fax": "(415) 554-5163"
                 },
                 "d5_mahmood": {
-                    "name": "Supervisor Bilal Mahmood (D5)",
+                    "title": "Supervisor",
+                    "name": "Bilal Mahmood",
+                    "note": "district 5",
                     "email": "MahmoodStaff@sfgov.org",
                     "cc": [],
                     "phone": "(415) 554-7630"
                 },
                 "d6_dorsey": {
-                    "name": "Supervisor Matt Dorsey (D6)",
+                    "title": "Supervisor",
+                    "name": "Matt Dorsey",
+                    "note": "district 6",
                     "email": "DorseyStaff@sfgov.org",
                     "cc": [],
                     "phone": "(415) 554-7970",
                     "fax": "(415) 554-5163"
                 },
                 "d7_melgar": {
-                    "name": "Supervisor Myrna Melgar (D7)",
+                    "title": "Supervisor",
+                    "name": "Myrna Melgar",
+                    "note": "district 7",
                     "email": "MelgarStaff@sfgov.org",
                     "cc": [],
                     "phone": "(415) 554-6516",
                     "fax": "(415) 554-5163"
                 },
                 "d8_mandelman": {
-                    "name": "Supervisor Rafael Mandelman (D8)",
-                    "title": "Board President",
+                    "title": "Supervisor Board President",
+                    "name": "Rafael Mandelman",
+                    "note": "district 8",
                     "email": "MandelmanStaff@sfgov.org",
                     "cc": [],
                     "phone": "(415) 554-6968",
                     "fax": "(415) 554-5163"
                 },
                 "d9_fielder": {
-                    "name": "Supervisor Jackie Fielder (D9)",
+                    "title": "Supervisor",
+                    "name": "Jackie Fielder",
+                    "note": "district 9",
                     "email": "FielderStaff@sfgov.org",
                     "cc": [],
                     "phone": "(415) 554-5144"
                 },
                 "d10_walton": {
-                    "name": "Supervisor Shamann Walton (D10)",
+                    "title": "Supervisor",
+                    "name": "Shamann Walton",
+                    "note": "district 0",
                     "email": "WaltonStaff@sfgov.org",
                     "cc": [],
                     "phone": "(415) 554-7670",
                     "fax": "(415) 554-5163"
                 },
                 "d11_chen": {
-                    "name": "Supervisor Chyanne Chen (D11)",
+                    "title": "Supervisor",
+                    "name": "Chyanne Chen",
+                    "note": "district 1",
                     "email": "ChenStaff@sfgov.org",
                     "cc": [],
                     "phone": "(415) 554-6975"

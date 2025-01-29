@@ -236,9 +236,11 @@
                                                             class="h-4 w-4 mt-1 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                                                     <label :for="'recipient-' + id" class="ml-2 block">
                                                         <div class="text-sm text-gray-900">
+                                                            <span x-if="official.title" class="text-gray-500 ml-1" 
+                                                                  x-text="`${official.title || ''}`"></span>
                                                             <span x-text="official.name"></span>
-                                                            <span x-if="official.title" class="text-xs text-gray-500 ml-1" 
-                                                                  x-text="`(${official.title})`"></span>
+                                                            <span x-if="official.note" class="text-xs text-gray-500 ml-1" 
+                                                                  x-text="`${official.note ? `(${official.note})`: ''}`"></span>
                                                         </div>
                                                         <div class="text-xs text-gray-500" x-text="official.email"></div>
                                                     </label>

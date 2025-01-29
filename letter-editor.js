@@ -288,16 +288,15 @@ ${this.getCCEmails()}`);
     },
 
     formatRecipientList() {
+      const officals_groups = Object.values(this.officials);
       const names = this.selectedRecipients
-        .map((id) => {
-          for (const group of Object.values(this.officials)) {
-            if (id in group.members) {
-              return group.members[id].name;
-            }
-          }
-          return `[Recipient id: ${id}]`;
-        })
-        .filter(Boolean);
+        .flatMap((id) => officals_groups.map((grp) => grp.members[id]))
+        .filter(Boolean)
+        .map(
+          (official) =>
+            `${official.title ? `${official.title} ` : ""}${official.name}`
+        );
+      console.log(names);
 
       switch (names.length) {
         case 0:
