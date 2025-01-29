@@ -24,7 +24,7 @@
                 @apply mb-1;
             }
             .editable-section {
-                @apply relative cursor-text border border-dashed border-gray-300 p-4 rounded-md hover:border-blue-400 transition-colors;
+                @apply relative cursor-text border border-dashed border-gray-300 p-1 sm:p-4 rounded-md hover:border-blue-400 transition-colors;
             }
             .editable-section::before {
                 content: 'Click to edit';
@@ -35,7 +35,7 @@
                 @apply text-blue-500;
             }
             .editable-section textarea {
-                @apply absolute inset-0 opacity-0 w-full h-full p-4;
+                @apply absolute inset-0 opacity-0 w-full h-full p-1 sm:p-4;
             }
             .editable-section:focus-within {
                 @apply ring-2 ring-blue-500 border-transparent;
@@ -114,8 +114,8 @@
     </div>
 
     <!-- Letter Editor View (initially hidden) -->
-    <div id="letterEditor" class="hidden p-6">
-        <div class="max-w-7xl mx-auto">
+    <div id="letterEditor" class="hidden p-2 sm:p-6">
+        <div class="sm:max-w-7xl sm:mx-auto">
             <button onclick="showLetterList()" class="mb-6 flex items-center text-blue-600 hover:text-blue-800">
                 <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -123,14 +123,14 @@
                 Back to Letters
             </button>
 
-            <div class="bg-white rounded-lg shadow-md p-6 w-full">
+            <div class="bg-white rounded-lg shadow-md p-1 sm:p-6 w-full">
                 <div class="prose max-w-none" id="letterContainer">
                     <!-- Letter content will be rendered here -->
                 </div>
             </div>
 
             <!-- Send Section -->
-            <div class="mt-6 bg-white rounded-lg shadow-md p-6">
+            <div class="mt-2 sm:mt-6 bg-white rounded-lg shadow-md p-3 sm:p-6">
                 <div class="mb-6">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Select Recipients:</label>
                     <div id="recipientCheckboxes">
