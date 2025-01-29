@@ -27,18 +27,18 @@
                 @apply mb-1;
             }
             .editable-section {
-                @apply relative cursor-text border border-dashed border-gray-300 p-1 sm:p-4 rounded-md hover:border-blue-400 transition-colors;
+                @apply relative border border-dashed border-gray-300 p-1 sm:p-4 rounded-md hover:border-blue-400 transition-colors touch-manipulation;
             }
             .editable-section::before {
                 content: attr(data-edit-message);
-                @apply absolute -top-3 right-2 text-sm text-gray-500 bg-white px-2;
+                @apply absolute -top-3 right-2 text-sm text-gray-500 bg-white px-2 pointer-events-none;
             }
             .editable-section:focus-within::before {
                 content: 'Editing...';
                 @apply text-blue-500;
             }
             .editable-section textarea {
-                @apply absolute inset-0 opacity-0 w-full h-full p-1 sm:p-4;
+                @apply absolute inset-0 opacity-0 w-full h-full p-1 sm:p-4 cursor-text;
             }
             .editable-section:focus-within {
                 @apply ring-2 ring-blue-500 border-transparent;
