@@ -287,13 +287,19 @@ ${this.getCCEmails()}`);
               return group.members[id].name;
             }
           }
-          return "[Recipient]";
+          return `[Recipient id: ${id}]`;
         })
         .filter(Boolean);
-
-      return names.length > 1
-        ? `${names.slice(0, -1).join(", ")} and ${names.slice(-1)}`
-        : names[0] || "[Recipients]";
+      switch (names.length) {
+        case 0:
+          return "[Recipients]";
+        case 1:
+          return names[0];
+        case 2:
+          return `${names[0]} and ${names[1]}`;
+        default:
+          return `${names.slice(0, -1).join(", ")}, and ${names.slice(-1)}`;
+      }
     },
 
     formatAddress(address) {
